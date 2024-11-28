@@ -32,6 +32,7 @@ public class MapEnter : MonoBehaviour{
 
     [SerializeField] public string mapNum; //SelectMap1, SelectStage에서 나온 변수의 값을 string으로 입력받을 것
     private List<GameObject> colliders;
+    private List<int> mapCode;
     
     
     // private void Start(){ //ui표시
@@ -50,6 +51,15 @@ public class MapEnter : MonoBehaviour{
     // }
 
 //     
+    private void Awake(){
+        var mapCode = new List<int>[]
+        {
+            new List<int> { 1, 2, 3, 4, 5 },
+            new List<int> { 6, 7, 8, 9, 10 },
+            new List<int> { 11, 12, 13, 14, 15 }
+        };
+
+    }
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu") return;
@@ -67,17 +77,40 @@ public class MapEnter : MonoBehaviour{
         if (Player == null) Debug.LogWarning("Player GameObject가 할당되지 않았습니다.");
     }
 
-    private void SelectMap() => stageNum = Random.Range(1, 4);
-    private void SelectStage() => roundNum = Random.Range(1, 6);
+    private void SelectMap(){ 
+        stageNum = Random.Range(0, 3);
+        switch(stageNum){
+            case 0:
+
+            case 1:
+
+            case 2:
+        }  
+    }
+
+    private void SelectStage(int stageNum){ 
+        roundNum = Random.Range(0, 5);
+    }
+    /*
+    private void 
+    switch(stageNum){
+        case 0:
+            
+
+        case 1:
+
+
+        case 2:
+    }
+    */
 
     public void MapChange()
     {
         do
         {
-            SelectMap();
-            SelectStage();
-            mapNum = $"{stageNum}-{roundNum}";
-        } while (mapCheck.Contains(mapNum));
+            SelectMap(); SelectStage();
+            mapNum = $"{stageNum + 1}-{roundNum + 1}";
+        } while (mapCheck.Contains(mapCode[stageNum][roundNum]));
         Debug.Log($"Selected Map: {mapNum}");
 
         if (enterPressed)
