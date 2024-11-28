@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
     public Item item;
     private SpawnEnemy spawnenemy;
 
-    private int enemyId;
+    public int enemyId;
     //[SerializeField]
     //private Animator anime; //적이 움직일 때 바라보는 곳 정하는 animation
     private EnemyHpBar enemyHpBar;
@@ -73,10 +73,12 @@ public class Enemy : MonoBehaviour
         attack = FindObjectOfType<Attack>();
         isTracing = false;
     }
-
-    public void randomValue(){
-        enemyId = Random.Range(0, spawnenemy.random);
+/*
+    public int randomValue(int random){
+        enemyId = Random.Range(0, random);
+        return enemyId;
     }
+    */
 
     private void FixedUpdate() {
         Move();
@@ -254,6 +256,7 @@ public class Enemy : MonoBehaviour
     
    
 //몬스터 공격력, hp 등을 체크하는 곳 -> 보스몹, 중간몹, 일반몹 다 다름
+//몬스터들의 레벨을 나타내는 방법은 색깔로 표현함 -> 아니면 위에 소환될 떄 UI를 달고 나오는 것도 생각하겠음 
     public void monster_level1(int monster_id){
         if(monster_id == 1){ //근접
             this.monster_hp = 20f;
